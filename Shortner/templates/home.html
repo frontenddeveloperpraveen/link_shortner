@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Shortner</title>
+</head>
+<body>
+    <div align="center">
+    <h1>Link <span>Shortner</span></h1>
+
+    <form id="linkForm" action="linkgen" method="get">
+        <input type="text" name="url" id="ids"> <br>
+        <input type="submit" id="submit">
+    </form>
+</div>
+<!--CSS-->
+
+<style>
+
+h1{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 50px;
+}
+
+span{
+
+    color: #00008B;
+}
+
+#ids {
+
+width: 400px ;
+height: 25px;
+}
+
+#submit{
+
+    margin-top: 25px;
+    height: 30px;
+    width: 150px;
+    border-radius: 5px;
+    border-width: 1px;
+}
+
+</style>
+
+<script>
+
+document.getElementById("linkForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    var url = "linkgen";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url + "?" + new URLSearchParams(new FormData(event.target)).toString(), true);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            var input = document.getElementById("ids");
+            var defaultValue = 'http://localhost:8000/' + response['link'];
+            input.value = defaultValue;
+        }
+    };
+
+    xhr.send();
+});
+
+</script>
+
+
+
+
+</script>
+</body>
+</html>
